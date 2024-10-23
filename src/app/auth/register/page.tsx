@@ -67,6 +67,7 @@ export default function Register() {
 
       router.push("/home");
     } catch (error) {
+      setInputError("Erro de cadastro");
       console.error(error);
     }
   }
