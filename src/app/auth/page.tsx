@@ -22,7 +22,6 @@ type AuthFormData = z.infer<typeof authFormSchema>;
 
 export default function Auth() {
   const [inputError, setInputError] = useState("");
-  console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
 
   const router = useRouter();
 
@@ -41,7 +40,9 @@ export default function Auth() {
 
       localStorage.setItem('token', response.data.access_token)
 
-      router.push("/home");
+      console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
+
+      //router.push("/home");
     } catch (error) {
       setInputError("Erro de login");
       console.error(error);
