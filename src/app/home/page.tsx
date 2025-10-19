@@ -2,7 +2,7 @@
 import "../globals.css";
 
 import { useEffect, useState } from 'react';
-import api from "../../lib/axios";
+import api from '@/lib/axios';
 
 type Investment = {
   objectiveId: string;
