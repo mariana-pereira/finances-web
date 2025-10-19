@@ -35,7 +35,9 @@ export default function Auth() {
 
   async function signInUser(data: AuthFormData) {
     try {
-      await api.post("/auth/signin", data);
+      const response = await api.post("/auth/signin", data);
+
+      localStorage.setItem('token', response.data.access_token)
 
       router.push("/home");
     } catch (error) {
