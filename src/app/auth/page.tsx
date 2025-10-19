@@ -22,6 +22,7 @@ type AuthFormData = z.infer<typeof authFormSchema>;
 
 export default function Auth() {
   const [inputError, setInputError] = useState("");
+  console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
 
   const router = useRouter();
 
