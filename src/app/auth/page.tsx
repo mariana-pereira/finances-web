@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import "../globals.css";
-import api from "../../lib/axios";
+import api from '@/lib/axios';
 
 const authFormSchema = z.object({
   email: z
