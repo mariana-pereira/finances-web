@@ -2,7 +2,7 @@
 import "../globals.css";
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from "../../lib/axios";
 
 type Investment = {
   objectiveId: string;
@@ -26,7 +26,7 @@ export default function Home() {
           return;
         }
 
-        const response = await axios.get<Investment[]>(
+        const response = await api.get<Investment[]>(
           'https://finances-api-dq8n.onrender.com/investments/sum',
           {
             headers: {
