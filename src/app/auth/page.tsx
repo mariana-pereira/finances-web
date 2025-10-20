@@ -42,7 +42,7 @@ export default function Auth() {
 
       console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
 
-      //router.push("/home");
+      router.push("/home");
     } catch (error) {
       setInputError("Erro de login");
       console.error(error);
