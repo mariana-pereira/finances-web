@@ -3,6 +3,7 @@ import "../globals.css";
 
 import { useEffect, useState } from 'react';
 import api from '@/lib/axios';
+import { useRouter } from "next/navigation";
 
 type Investment = {
   objectiveId: string;
@@ -14,7 +15,14 @@ type Investment = {
 export default function Home() {
   const [investments, setInvestments] = useState<Investment[]>([]);
   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
+
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (!token) router.push("/signin");
+}, []);
 
   useEffect(() => {
     const fetchInvestments = async () => {
