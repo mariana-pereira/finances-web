@@ -38,11 +38,12 @@ export default function Auth() {
     try {
       const response = await api.post("/auth/signin", data);
 
-      localStorage.setItem('token', response.data.access_token)
+      console.log("response")
+      localStorage.setItem("token", response.data.access_token);
+      console.log("token")
+      requestAnimationFrame(() => router.push("/home"));
+      console.log("/home")
 
-      console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
-
-      router.push("/home");
     } catch (error) {
       setInputError("Erro de login");
       console.error(error);
