@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Inter } from "next/font/google";
+import Link from "next/link";
+import { usePathname } from "next/navigation"; // 👈 import this
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,19 +25,19 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const pathname = usePathname(); // 👈 current route
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   const navItems = [
-    { icon: <House size={22} />, label: "Início" },
-    { icon: <Landmark size={22} />, label: "Contas" },
-    { icon: <CreditCard size={22} />, label: "Cartões" },
-    { icon: <Target size={22} />, label: "Objetivos" },
-    { icon: <ChartNoAxesCombined size={22} />, label: "Investimentos" },
-    { icon: <DollarSign size={22} />, label: "Budget" },
+    { icon: <House size={22} />, label: "Início", path: "/home" },
+    { icon: <Landmark size={22} />, label: "Contas", path: "/accounts" },
+    { icon: <CreditCard size={22} />, label: "Cartões", path: "/cards" },
+    { icon: <Target size={22} />, label: "Objetivos", path: "/goals" },
+    { icon: <ChartNoAxesCombined size={22} />, label: "Investimentos", path: "/investments" },
+    { icon: <DollarSign size={22} />, label: "Budget", path: "/budget" },
   ];
 
-  const bottomItems = [{ icon: <Settings size={22} />, label: "Configurações" }];
+  const bottomItems = [{ icon: <Settings size={22} />, label: "Configurações", path: "/settings" }];
 
   return (
     <html lang="pt-BR" className="dark antialiased">
@@ -69,27 +71,47 @@ export default function AuthLayout({
             </div>
 
             <nav className="flex-1 w-full bg-zinc-950 rounded-tr-2xl py-6">
-              {navItems.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex flex-row items-center pl-8 py-4 hover:bg-zinc-800 cursor-pointer"
-                >
-                  {item.icon}
-                  <span className="ml-6 text-lg">{item.label}</span>
-                </div>
-              ))}
+              {navItems.map((item) => {
+                const isActive = pathname === item.path; // 👈 check active route
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex flex-row items-center pl-8 py-4 cursor-pointer transition-colors
+                      ${
+                        isActive
+                          ? "bg-blue-800 text-white"
+                          : "hover:bg-zinc-800 text-zinc-300"
+                      }`}
+                  >
+                    {item.icon}
+                    <span className="ml-6 text-lg">{item.label}</span>
+                  </Link>
+                );
+              })}
 
               <div className="border-t border-zinc-800 my-4 mx-4" />
 
-              {bottomItems.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex flex-row items-center pl-8 py-4 hover:bg-zinc-800 cursor-pointer"
-                >
-                  {item.icon}
-                  <span className="ml-6 text-lg">{item.label}</span>
-                </div>
-              ))}
+              {bottomItems.map((item) => {
+                const isActive = pathname === item.path;
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex flex-row items-center pl-8 py-4 cursor-pointer transition-colors
+                      ${
+                        isActive
+                          ? "bg-blue-800 text-white"
+                          : "hover:bg-zinc-800 text-zinc-300"
+                      }`}
+                  >
+                    {item.icon}
+                    <span className="ml-6 text-lg">{item.label}</span>
+                  </Link>
+                );
+              })}
             </nav>
           </aside>
 
