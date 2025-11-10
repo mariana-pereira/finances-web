@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { api } from "../../lib/axios";
+
 import "../globals.css";
+import api from '@/lib/axios';
 
 const authFormSchema = z.object({
   email: z
@@ -21,6 +22,7 @@ type AuthFormData = z.infer<typeof authFormSchema>;
 
 export default function Auth() {
   const [inputError, setInputError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -35,15 +37,20 @@ export default function Auth() {
 
   async function signInUser(data: AuthFormData) {
     try {
+      setLoading(true);
       const response = await api.post("/auth/signin", data);
-
-      localStorage.setItem('token', response.data.access_token)
-
-      router.push("/home");
+      localStorage.setItem("token", response.data.access_token);
+      requestAnimationFrame(() => router.push("/home"));
+      setLoading(false);
     } catch (error) {
       setInputError("Erro de login");
+      setLoading(false);
       console.error(error);
     }
+  }
+
+  if (loading) {
+    return <strong>Carregando...</strong>
   }
 
   return (

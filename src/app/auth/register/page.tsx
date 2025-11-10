@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { api } from "../../../lib/axios";
+import api from '@/lib/axios';
 import "../../globals.css";
 
 const createUserFormSchema = z.object({
