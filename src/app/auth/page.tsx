@@ -22,6 +22,7 @@ type AuthFormData = z.infer<typeof authFormSchema>;
 
 export default function Auth() {
   const [inputError, setInputError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -36,18 +37,20 @@ export default function Auth() {
 
   async function signInUser(data: AuthFormData) {
     try {
+      setLoading(true);
       const response = await api.post("/auth/signin", data);
-
-      console.log("response")
       localStorage.setItem("token", response.data.access_token);
-      console.log("token")
       requestAnimationFrame(() => router.push("/home"));
-      console.log("/home")
-
+      setLoading(false);
     } catch (error) {
       setInputError("Erro de login");
+      setLoading(false);
       console.error(error);
     }
+  }
+
+  if (loading) {
+    return <strong>Carregando...</strong>
   }
 
   return (
