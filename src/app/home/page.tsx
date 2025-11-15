@@ -19,7 +19,7 @@ export default function Home() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) router.push("/signin");
+    if (!token) router.push("/auth");
   }, [router]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Home() {
         }
 
         const response = await api.get<Investment[]>(
-          "https://finances-api-dq8n.onrender.com/investments/sum",
+          "/investments/sum",
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
