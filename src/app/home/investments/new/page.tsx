@@ -58,7 +58,7 @@ export default function NewInvestmentPage() {
     async function loadData() {
       try {
         if (!token) return; 
-        
+
         const [accRes, objRes] = await Promise.all([
           api.get("/accounts", {
             headers: { Authorization: `Bearer ${token}` },
@@ -90,7 +90,7 @@ export default function NewInvestmentPage() {
     }
 
     loadData();
-  }, []);
+  }, [token]);
 
   async function onSubmit(data: InvestmentFormData) {
     data.date = dayjs(data.date).toISOString();
