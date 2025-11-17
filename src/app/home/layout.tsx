@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // 👈 import this
+import { usePathname } from "next/navigation";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,11 +30,11 @@ export default function AuthLayout({
 
   const navItems = [
     { icon: <House size={22} />, label: "Início", path: "/home" },
-    { icon: <Landmark size={22} />, label: "Contas", path: "/accounts" },
-    { icon: <CreditCard size={22} />, label: "Cartões", path: "/cards" },
-    { icon: <Target size={22} />, label: "Objetivos", path: "/goals" },
-    { icon: <ChartNoAxesCombined size={22} />, label: "Investimentos", path: "/investments" },
-    { icon: <DollarSign size={22} />, label: "Budget", path: "/budget" },
+    { icon: <Landmark size={22} />, label: "Contas", path: "/home/accounts" },
+    { icon: <CreditCard size={22} />, label: "Cartões", path: "/home/cards" },
+    { icon: <Target size={22} />, label: "Objetivos", path: "/home/goals" },
+    { icon: <ChartNoAxesCombined size={22} />, label: "Investimentos", path: "/home/investments" },
+    { icon: <DollarSign size={22} />, label: "Budget", path: "/home/budget" },
   ];
 
   const bottomItems = [{ icon: <Settings size={22} />, label: "Configurações", path: "/settings" }];
