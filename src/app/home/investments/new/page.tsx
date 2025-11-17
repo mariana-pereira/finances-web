@@ -37,8 +37,7 @@ export default function NewInvestmentPage() {
   const [message, setMessage] = useState("");
   const [accounts, setAccounts] = useState<any[]>([]);
   const [objectives, setObjectives] = useState<any[]>([]);
-
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState<string | null>(null);
 
   const {
     register,
@@ -51,8 +50,15 @@ export default function NewInvestmentPage() {
   });
 
   useEffect(() => {
+    const stored = localStorage.getItem("token");
+    setToken(stored);
+  }, []);
+
+  useEffect(() => {
     async function loadData() {
       try {
+        if (!token) return; 
+        
         const [accRes, objRes] = await Promise.all([
           api.get("/accounts", {
             headers: { Authorization: `Bearer ${token}` },
