@@ -16,25 +16,24 @@ export default function Investments() {
   const [investments, setInvestments] = useState<Investment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
-  const token = localStorage.getItem("token");
 
   function goToNewInvestment() {
     router.push("/home/investments/new");
   }
 
-  useEffect(() => {
-    if (!token) router.push("/auth");
+ useEffect(() => {
+    const stored = localStorage.getItem("token");
+    setToken(stored);
+
+    if (!stored) router.push("/auth");
   }, [router]);
 
   useEffect(() => {
     const fetchInvestments = async () => {
       try {
-        if (!token) {
-          setError("Token not found. Please log in.");
-          setLoading(false);
-          return;
-        }
+        if (!token) return; 
 
         const response = await api.get<Investment[]>(
           "/investments/sum",
@@ -51,7 +50,7 @@ export default function Investments() {
     };
 
     fetchInvestments();
-  }, []);
+  }, [token]);
 
   const totalSum = investments.reduce((acc, curr) => acc + curr.total, 0);
 

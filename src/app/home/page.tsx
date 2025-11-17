@@ -1,25 +1,12 @@
 'use client';
 import "../globals.css";
-import { useEffect, useState } from "react";
-import api from "@/lib/axios";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-type Investment = {
-  objectiveId: string;
-  objectiveName: string;
-  targetAmount: number;
-  total: number;
-};
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) router.push("/auth");
-  }, [router]);
 
   if (loading) {
     return (
