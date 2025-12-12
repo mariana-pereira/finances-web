@@ -27,6 +27,7 @@ export function FormInput({
 
       <input
         type={type}
+        step={type === "number" ? "0.01" : undefined}
         placeholder={placeholder}
         className="
           border p-2 rounded w-full
